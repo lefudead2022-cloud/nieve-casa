@@ -20,17 +20,17 @@
   <p id="msg">Buscando la casa de Nieve…</p>
 </div>
 <script>
-  const repo = location.pathname.split('/')[1] || '';
-  const base = repo ? '/' + repo : '';
-  fetch(base + '/url.txt?nocache=' + Date.now(), { cache: 'no-store' })
-    .then(r => r.text())
-    .then(u => {
-      u = u.trim();
-      if (!u) { document.getElementById('msg').textContent = 'Nieve no está disponible ahora.'; return; }
-      const path = location.pathname.replace(new RegExp('^/' + repo), '') || '/';
-      location.replace(u.replace(/\/$/, '') + path + location.search + location.hash);
-    })
-    .catch(() => { document.getElementById('msg').textContent = 'No se pudo conectar con la casa.'; });
+  var repo = 'lefudead2022-cloud/nieve-casa';
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://raw.githubusercontent.com/' + repo + '/main/url.txt?nocache=' + Date.now(), false);
+  xhr.send();
+  var u = (xhr.responseText || '').trim();
+  if (!u) {
+    document.getElementById('msg').textContent = 'Nieve no está disponible ahora.';
+  } else {
+    var path = location.pathname.replace(/^\/[^/]+/, '') || '/';
+    location.replace(u.replace(/\/$/, '') + path + location.search + location.hash);
+  }
 </script>
 </body>
 </html>

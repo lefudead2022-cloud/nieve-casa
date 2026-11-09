@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>La casa de Nieve</title>
 <style>
   body { font-family: system-ui, sans-serif; background: #08111f; color: #eaf3ff;
@@ -18,7 +21,8 @@
 </div>
 <script>
   const repo = location.pathname.split('/')[1] || '';
-  fetch('/' + repo + '/url.txt?nocache=' + Date.now())
+  const base = repo ? '/' + repo : '';
+  fetch(base + '/url.txt?nocache=' + Date.now(), { cache: 'no-store' })
     .then(r => r.text())
     .then(u => {
       u = u.trim();

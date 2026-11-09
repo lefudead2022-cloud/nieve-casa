@@ -1,1 +1,1 @@
-https://debut-organized-update-technologies.trycloudflare.com
+https://api.trycloudflare.com

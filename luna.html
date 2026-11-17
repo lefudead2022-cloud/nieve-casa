@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>La casa de Nieve - Luna</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #08111f; color: #eaf3ff;
+         display: grid; place-items: center; min-height: 100vh; margin: 0; }
+  .caja { text-align: center; padding: 2rem; max-width: 400px; }
+  .copo { font-size: 3rem; }
+  a { color: #7cc4ff; font-size: 1.2rem; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="caja">
+  <div class="copo">❄</div>
+  <p id="msg">Buscando la casa de Nieve…</p>
+  <p id="link" hidden><a id="a" href="#">Entrar</a></p>
+</div>
+<script>
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.github.com/repos/lefudead2022-cloud/nieve-casa/contents/url.txt?nocache=' + Date.now(), false);
+  xhr.send();
+  var u = '';
+  try { var j = JSON.parse(xhr.responseText); u = atob(j.content.replace(/\n/g, '')).trim(); } catch(e) {}
+  if (!u) {
+    document.getElementById('msg').textContent = 'Nieve no está disponible ahora.';
+  } else {
+    var dest = u.replace(/\/$/, '') + '/luna';
+    document.getElementById('msg').hidden = true;
+    var a = document.getElementById('a');
+    a.href = dest;
+    document.getElementById('link').hidden = false;
+    setTimeout(function() { location.replace(dest); }, 300);
+  }
+</script>
+</body>
+</html>

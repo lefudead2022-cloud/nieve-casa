@@ -22,11 +22,14 @@
   <p id="link" hidden><a id="a" href="#">Entrar a la casa de Nieve</a></p>
 </div>
 <script>
-  var repo = 'lefudead2022-cloud/nieve-casa';
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://raw.githubusercontent.com/' + repo + '/main/url.txt?nocache=' + Date.now(), false);
+  xhr.open('GET', 'https://api.github.com/repos/lefudead2022-cloud/nieve-casa/contents/url.txt?nocache=' + Date.now(), false);
   xhr.send();
-  var u = (xhr.responseText || '').trim();
+  var u = '';
+  try {
+    var j = JSON.parse(xhr.responseText);
+    u = atob(j.content.replace(/\n/g, '')).trim();
+  } catch(e) {}
   if (!u) {
     document.getElementById('msg').textContent = 'Nieve no está disponible ahora.';
   } else {
@@ -36,8 +39,7 @@
     var a = document.getElementById('a');
     a.href = dest;
     document.getElementById('link').hidden = false;
-    // intentar redireccion automatica despues de 1 segundo
-    setTimeout(function() { location.replace(dest); }, 1000);
+    setTimeout(function() { location.replace(dest); }, 500);
   }
 </script>
 </body>

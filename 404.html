@@ -29,7 +29,9 @@
     document.getElementById('msg').textContent = 'Nieve no está disponible ahora.';
   } else {
     var path = location.pathname.replace(/^\/[^/]+/, '') || '/';
-    location.replace(u.replace(/\/$/, '') + path + location.search + location.hash);
+    setTimeout(function() {
+      location.replace(u.replace(/\/$/, '') + path + location.search + location.hash);
+    }, 100);
   }
 </script>
 </body>

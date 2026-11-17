@@ -10,14 +10,18 @@
 <style>
   body { font-family: system-ui, sans-serif; background: #08111f; color: #eaf3ff;
          display: grid; place-items: center; min-height: 100vh; margin: 0; }
-  .caja { text-align: center; padding: 2rem; }
+  .caja { text-align: center; padding: 2rem; max-width: 400px; }
   .copo { font-size: 3rem; }
+  a { color: #7cc4ff; font-size: 1.2rem; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .cargando { color: #9db4cf; font-size: 0.9rem; }
 </style>
 </head>
 <body>
 <div class="caja">
   <div class="copo">❄</div>
-  <p id="msg">Buscando la casa de Nieve…</p>
+  <p id="msg" class="cargando">Buscando la casa de Nieve…</p>
+  <p id="link" hidden><a id="a" href="#">Entrar a la casa de Nieve</a></p>
 </div>
 <script>
   var repo = 'lefudead2022-cloud/nieve-casa';
@@ -29,9 +33,12 @@
     document.getElementById('msg').textContent = 'Nieve no está disponible ahora.';
   } else {
     var path = location.pathname.replace(/^\/[^/]+/, '') || '/';
-    setTimeout(function() {
-      location.replace(u.replace(/\/$/, '') + path + location.search + location.hash);
-    }, 100);
+    var dest = u.replace(/\/$/, '') + path + location.search + location.hash;
+    document.getElementById('msg').hidden = true;
+    var a = document.getElementById('a');
+    a.href = dest;
+    document.getElementById('link').hidden = false;
+    setTimeout(function() { location.replace(dest); }, 1000);
   }
 </script>
 </body>
